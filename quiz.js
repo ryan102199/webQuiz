@@ -1,335 +1,57 @@
-<link rel="stylesheet" type="text/css" href="https://assets.skintrax.com/quiz/style.css">
-<link rel="stylesheet" type="text/css" href="https://assets.skintrax.com/quiz/responsive.css">
-    <div class="section quiz-container">
-        <div class="container">
-            <div class="cards-grid">
-                <div class="featured-cards">
-                    <div class="card-holder" style="background-image: url('https://s3.us-west-1.amazonaws.com/assets.skintrax.com/quiz/quiz-bg.jpg'); background-position: unset;">
-                        <div class="card-container">
-                            <form id="steps" class="show-section" method="post">
-                                <!-- step-1 -->
-                                <section class="steps-inner pop-slide" id="step-1">
-                                    <div class="wrapper">
-                                        <div class="step-bar">
-                                            <div class="step-bar-inner">
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="form-heading">
-                                                What is your eye color?
-                                            </div>
-                                            <div class="form-inner">
-                                                <label class="form-input">
-                                                    <input type="radio" name="q1" value="0">
-                                                    Light blue, gray, green
-                                                </label>
-                                                <label class="form-input">
-                                                    <input type="radio" name="q1" value="1">
-                                                    Blue, gray, or green
-                                                </label>
-                                                <label class="form-input">
-                                                    <input type="radio" name="q1" value="2">
-                                                    Blue
-                                                </label>
-                                                <label class="form-input">
-                                                    <input type="radio" name="q1" value="3">
-                                                    Dark brown
-                                                </label>
-                                                <label class="form-input">
-                                                    <input type="radio" name="q1" value="4">
-                                                    Brownish black
-                                                </label>
-                                            </div>
-                                            <div class="form-buttons">
-                                                <button type="button" class="next">next<i class="fa-solid fa-arrow-right"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
+// next prev function
+$(document).ready(function() {
+    var divs = $('.show-section>.steps-inner');
+    var now = 0; // currently shown div
+    divs.hide().first().show(); // hide all divs except first
+    $(".next").click(function() {
+        divs.eq(now).hide();
+        now = (now + 1 < divs.length) ? now + 1 : 0;
+        divs.eq(now).show(); // show next
+    });
+    $(".prev").click(function() {
+        divs.eq(now).hide();
+        now = (now > 0) ? now - 1 : divs.length - 1;
+        divs.eq(now).show(); // show previous
+    });
+});
 
-                                <!-- step-2 -->
-                                <section class="steps-inner" id="step-2">
-                                    <div class="wrapper">
-                                        <div class="step-bar">
-                                            <div class="step-bar-inner">
-                                                <div class="step-bar-move step-move s1"></div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="form-heading">
-                                                What is your hair color?
-                                            </div>
-                                            <div class="form-inner pop-slide">
-                                                <label class="form-input">
-                                                    <input type="radio" name="q2" value="0">
-                                                    Sandy red
-                                                </label>
-                                                <label class="form-input">
-                                                    <input type="radio" name="q2" value="1">
-                                                    Blonde
-                                                </label>
-                                                <label class="form-input">
-                                                    <input type="radio" name="q2" value="2">
-                                                    Chestnut/dark blonde
-                                                </label>
-                                                <label class="form-input">
-                                                    <input type="radio" name="q2" value="3">
-                                                    Dark brown
-                                                </label>
-                                                <label class="form-input">
-                                                    <input type="radio" name="q2" value="4">
-                                                    Black
-                                                </label>
-                                            </div>
+// label active on input check
+$(document).ready(function()
+{
+    $('.form-input input').on("change", function()
+    {
 
-                                            <!-- next-prev-btn -->
-                                            <div class="form-buttons">
-                                                <button type="button" class="prev"><i class="fa-solid fa-arrow-left"></i>last</button>
-                                                <button type="button" class="next">next<i class="fa-solid fa-arrow-right"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
+            $(".form-input").removeClass("active-input");
+            $(this).parent().addClass("active-input");
+    })
+})
 
-                                <!-- step-3 -->
-                                <section class="steps-inner" id="step-3">
-                                    <div class="wrapper">
-                                        <div class="step-bar">
-                                            <div class="step-bar-inner">
-                                                <div class="step-bar-move step-move s2"></div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="form-heading">
-                                                What is the color of your unexposed skin?
-                                            </div>
-                                            <div class="form-inner pop-slide">
-                                                <label class="form-input">
-                                                    <input type="radio" name="q3" value="0">
-                                                    Reddish
-                                                </label>
-                                                <label class="form-input">
-                                                    <input type="radio" name="q3" value="1">
-                                                    Very pale
-                                                </label>
-                                                <label class="form-input">
-                                                    <input type="radio" name="q3" value="2">
-                                                    Pale with beige tint
-                                                </label>
-                                                <label class="form-input">
-                                                    <input type="radio" name="q3" value="3">
-                                                    Light brown
-                                                </label>
-                                                <label class="form-input">
-                                                    <input type="radio" name="q3" value="4">
-                                                    Dark brown
-                                                </label>
-                                            </div>
+// disable on enter
+$('form').on('keyup keypress', function(e) {
+  var keyCode = e.keyCode || e.which;
+  if (keyCode === 13) { 
+    e.preventDefault();
+    return false;
+  }
+});
 
-                                            <!-- next-prev-btn -->
-                                            <div class="form-buttons">
-                                                <button type="button" class="prev"><i class="fa-solid fa-arrow-left"></i>prev</button>
-                                                <button type="button" class="next">next<i class="fa-solid fa-arrow-right"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-
-                                <!-- step-4 -->
-                                <section class="steps-inner" id="step-4">
-                                    <div class="wrapper">
-                                        <div class="step-bar">
-                                            <div class="step-bar-inner">
-                                                <div class="step-bar-move step-move s3"></div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="form-heading">
-                                                Do you have freckles on exposed areas?
-                                            </div>
-                                            <div class="form-inner pop-slide">
-                                                <label class="form-input">
-                                                    <input type="radio" name="q4" value="0">
-                                                    Very sensitive
-                                                </label>
-                                                <label class="form-input">
-                                                    <input type="radio" name="q4" value="1">
-                                                    Sensitive
-                                                </label>
-                                                <label class="form-input">
-                                                    <input type="radio" name="q4" value="2">
-                                                    Normal
-                                                </label>
-                                                <label class="form-input">
-                                                    <input type="radio" name="q4" value="3">
-                                                    Very resistant
-                                                </label>
-                                                <label class="form-input">
-                                                    <input type="radio" name="q4" value="4">
-                                                    Never had a problem
-                                                </label>
-                                            </div>
-
-                                            <!-- next-prev-btn -->
-                                            <div class="form-buttons">
-                                                <button type="button" class="prev"><i class="fa-solid fa-arrow-left"></i>prev</button>
-                                                <button type="button" class="next">next<i class="fa-solid fa-arrow-right"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-
-                                <!-- step-5 -->
-                                <section class="steps-inner" id="step-5">
-                                    <div class="wrapper">
-                                        <div class="step-bar">
-                                            <div class="step-bar-inner">
-                                                <div class="step-bar-move step-move s4"></div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="form-heading">
-                                                What happens when you stay in the sun too long?
-                                            </div>
-                                            <div class="form-inner pop-slide">
-                                                <label class="form-input">
-                                                    <input type="radio" name="q5" value="0">
-                                                    Painful redness, blistering, peeling
-                                                </label>
-                                                <label class="form-input">
-                                                    <input type="radio" name="q5" value="1">
-                                                    Blistering followed
-                                                </label>
-                                                <label class="form-input">
-                                                    <input type="radio" name="q5" value="2">
-                                                    Burns sometimes followed by peeling
-                                                </label>
-                                                <label class="form-input">
-                                                    <input type="radio" name="q5" value="3">
-                                                    Rare burns
-                                                </label>
-                                                <label class="form-input">
-                                                    <input type="radio" name="q5" value="4">
-                                                    Never had burns
-                                                </label>
-                                            </div>
-
-                                            <!-- next-prev-btn -->
-                                            <div class="form-buttons">
-                                                <button type="button" class="prev"><i class="fa-solid fa-arrow-left"></i>prev</button>
-                                                <button type="button" class="next">next<i class="fa-solid fa-arrow-right"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-
-                                <!-- step-6 -->
-                                <section class="steps-inner" id="step-6">
-                                    <div class="wrapper">
-                                        <div class="step-bar">
-                                            <div class="step-bar-inner">
-                                                <div class="step-bar-move step-move s5"></div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="form-heading">
-                                                How easily do you tan?
-                                            </div>
-                                            <div class="form-inner pop-slide">
-                                                <label class="form-input">
-                                                    <input type="radio" name="q6" value="0">
-                                                    Hardly or not at all
-                                                </label>
-                                                <label class="form-input">
-                                                    <input type="radio" name="q6" value="1">
-                                                    Light color tan
-                                                </label>
-                                                <label class="form-input">
-                                                    <input type="radio" name="q6" value="2">
-                                                    Reasonable tan
-                                                </label>
-                                                <label class="form-input">
-                                                    <input type="radio" name="q6" value="3">
-                                                    Tan very easily
-                                                </label>
-                                                <label class="form-input">
-                                                    <input type="radio" name="q6" value="4">
-                                                    Turn dark brown quickly
-                                                </label>
-                                            </div>
-
-                                            <!-- next-prev-btn -->
-                                            <div class="form-buttons">
-                                                <button type="button" class="prev"><i class="fa-solid fa-arrow-left"></i>prev</button>
-                                                <button type="button" class="next">next<i class="fa-solid fa-arrow-right"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-
-                                <!-- step-7 -->
-                                <section class="steps-inner" id="step-7">
-                                    <div class="wrapper">
-                                        <div class="step-bar">
-                                            <div class="step-bar-inner">
-                                                <div class="step-bar-move step-move s6"></div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="form-heading">
-                                                How sensitive is your face to the sun?
-                                            </div>
-                                            <div class="form-inner pop-slide">
-                                                <label class="form-input">
-                                                    <input type="radio" name="q7" value="0">
-                                                    Very sensitive
-                                                </label>
-                                                <label class="form-input">
-                                                    <input type="radio" name="q7" value="1">
-                                                    Sensitive
-                                                </label>
-                                                <label class="form-input">
-                                                    <input type="radio" name="q7" value="2">
-                                                    Normal
-                                                </label>
-                                                <label class="form-input">
-                                                    <input type="radio" name="q7" value="3">
-                                                    Very Resistant
-                                                </label>
-                                                <label class="form-input">
-                                                    <input type="radio" name="q7" value="4">
-                                                    Never had a problem
-                                                </label>
-                                            </div>
-
-                                            <!-- next-prev-btn -->
-                                            <div class="form-buttons">
-                                                <button type="button" class="prev"><i class="fa-solid fa-arrow-left"></i>prev</button>
-                                                <button type="button" class="next" id="quiz-calculate">Submit</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-
-                                <!-- finished -->
-                                <section class="steps-inner" id="step-8">
-                                    <div class="wrapper">
-                                        <div class="form-heading" id="quiz-result" style="text-align:center"></div>
-                                        <br />
-                                        <div class="form-input" id="quiz-result-info" style="text-align:center">
-                                            Some write up about the score, and tell them to download the app.
-                                        </div>
-                                        <br /><br />
-                                        <div class="row text-center">
-                                            <div class="col"><a href="https://www.apple.com/store" target="_blank" class="cta-image-holder w-inline-block"><img src="https://assets.skintrax.com/quiz/App-Store.svg" loading="lazy" alt="Download Apple store" class="cta-image"></a></div>
-                                            <div class="col"><a href="https://play.google.com/store/apps/details?id=com.dermaoptic.skintrax&pcampaignid=web_share" target="_blank" class="cta-image-holder w-inline-block"><img src="https://assets.skintrax.com/quiz/Google-Play-Store.png" loading="lazy" alt="Download Play store" class="cta-image"></a></div>
-                                        </div>
-                                    </div>
-                                </section>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+  document.getElementById('quiz-calculate').addEventListener('click', function () {
+            var q1 = parseInt(document.querySelector('input[name=q1]:checked').value) || 0;
+            var q2 = parseInt(document.querySelector('input[name=q2]:checked').value) || 0;
+            var q3 = parseInt(document.querySelector('input[name=q3]:checked').value) || 0;
+            var q4 = parseInt(document.querySelector('input[name=q4]:checked').value) || 0;
+            var q5 = parseInt(document.querySelector('input[name=q5]:checked').value) || 0;
+            var q7 = parseInt(document.querySelector('input[name=q7]:checked').value) || 0;
+            var sum = q1 + q2 + q3 + q4 + q5 + q7;
+            document.getElementById('quiz-result').innerHTML = 'Your score is ' + sum + '/28';
+            var quizResultInfo = document.getElementById('quiz-result-info');
+            if (sum >= 7) {
+                quizResultInfo.innerHTML = 'Always burns, extremely pale and never tans, red or blonde, lilghht colored eyes.';
+            } else if (sum >= 8 && sum <= 16) {
+                quizResultInfo.innerHTML = 'Pale but somewhat tans and burns fairly easily burns, extremely pale and never tans, red or blonde, lilghht colored eyes.';
+            } else if (sum >= 17 && sum <= 25) {
+                quizResultInfo.innerHTML = 'Pale but somewhat tans and burns fairly easily burns, extremely pale and never tans, red or blonde, lilghht colored eyes.';
+            } else if (sum >= 26 && sum <= 30) {
+                quizResultInfo.innerHTML = 'Pale but somewhat tans and burns fairly easily burns, extremely pale and never tans, red or blonde, lilghht colored eyes.';
+            }
+        });
